@@ -1,19 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 
 export default function App() {
+  const [resultText, setResultText] = useState('');
+  let operations = ['Del', '+', '-', '*', '/'];
+
+  const calculateResult =() => {
+    // setResultText()
+  }
+  const buttonPressed = text => {
+    if (text === '=') {
+      calculateResult();
+    } else {
+      setResultText(resultText + text);
+    }
+  };
+
+  const operate = operation => {
+    switch (operation) {
+      case 'Del':
+        let text = resultText.split('');
+        text.pop();
+        setResultText(text.join(''));
+        break;
+      case '+':
+      case '-':
+      case '*':
+      case '/':
+        const lastChar = resultText.split('').pop();
+        if(operations.indexOf(lastChar)>0) return;
+        if(resultText === '') return;
+        setResultText(resultText+operation)
+    }
+  };
+  // const calculateResult
   let rows = [];
   let nums = [
     [1, 2, 3],
     [4, 5, 6],
     [7, 8, 9],
-    [0, 0, '=']
+    ['.', 0, '=']
   ];
   for (let i = 0; i < 4; i++) {
     let row = [];
     for (let j = 0; j < 3; j++) {
       row.push(
-        <TouchableOpacity style={styles.btn}>
+        <TouchableOpacity
+          onPress={() => buttonPressed(nums[i][j])}
+          style={styles.btn}
+        >
           <Text style={styles.btnText}>{nums[i][j]}</Text>
         </TouchableOpacity>
       );
@@ -21,11 +56,13 @@ export default function App() {
     rows.push(<View style={styles.row}>{row}</View>);
   }
 
-  let operations = ['+', '-', '*', '/'];
   let ops = [];
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 5; i++) {
     ops.push(
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity
+        style={styles.btn}
+        onPress={() => operate(operations[i])}
+      >
         <Text style={(styles.btnText, styles.white)}>{operations[i]}</Text>
       </TouchableOpacity>
     );
@@ -33,7 +70,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.result}>
-        <Text style={styles.resultText}>11*11</Text>
+        <Text style={styles.resultText}>{resultText}</Text>
       </View>
       <View style={styles.calculation}>
         <Text style={styles.calculationText}>122</Text>
