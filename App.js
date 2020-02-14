@@ -104,7 +104,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   btnText: {
-    fontSize: 30
+    fontSize: 30,
+    color: 'white'
   },
   white: {
     color: 'white'
@@ -117,11 +118,11 @@ const styles = StyleSheet.create({
   },
   resultText: {
     fontSize: 30,
-    color: 'white'
+    color: 'black'
   },
   calculationText: {
     fontSize: 24,
-    color: 'white'
+    color: 'black'
   },
   row: {
     flex: 1,
@@ -133,13 +134,13 @@ const styles = StyleSheet.create({
     flex: 2,
     justifyContent: 'center',
     alignItems: 'flex-end',
-    backgroundColor: 'red'
+    backgroundColor: 'white'
   },
   calculation: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'flex-end',
-    backgroundColor: 'green'
+    backgroundColor: 'white'
   },
   buttons: {
     flexGrow: 7,
@@ -147,12 +148,12 @@ const styles = StyleSheet.create({
   },
   numbers: {
     flex: 3,
-    backgroundColor: 'yellow'
+    backgroundColor: '#5f6a73'
   },
   operations: {
     flex: 1,
     justifyContent: 'space-around',
     alignItems: 'stretch',
-    backgroundColor: 'black'
+    backgroundColor: '#32393f'
   }
 });
