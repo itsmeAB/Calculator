@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 export default function App() {
   const [resultText, setResultText] = useState('');
   const [calculationText, setCalculationText] = useState('');
-  let operations = ['Del', '+', '-', '*', '/'];
+  let operations = ['CLEAR', 'Del', '+', '-', '*', '/'];
 
   const calculateResult = text => {
     setCalculationText(eval(resultText));
@@ -32,11 +32,16 @@ export default function App() {
 
   const operate = operation => {
     switch (operation) {
+      case 'CLEAR':
+        setResultText('');
+        setCalculationText('');
+        break;
       case 'Del':
         let text = resultText.split('');
         text.pop();
         setResultText(text.join(''));
         break;
+        
       case '+':
       case '-':
       case '*':
@@ -47,7 +52,7 @@ export default function App() {
         setResultText(resultText + operation);
     }
   };
-  // const calculateResult
+
   let rows = [];
   let nums = [
     [1, 2, 3],
