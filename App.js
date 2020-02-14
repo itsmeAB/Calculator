@@ -3,14 +3,28 @@ import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 
 export default function App() {
   const [resultText, setResultText] = useState('');
+  const [calculationText, setCalculationText] = useState('');
   let operations = ['Del', '+', '-', '*', '/'];
 
-  const calculateResult =() => {
-    // setResultText()
-  }
+  const calculateResult = text => {
+    setCalculationText(eval(resultText));
+  };
+
+  const validate = () => {
+    const text = resultText;
+    switch (text.slice(-1)) {
+      case '+':
+      case '-':
+      case '*':
+      case '/':
+        return false;
+    }
+    return true;
+  };
+
   const buttonPressed = text => {
     if (text === '=') {
-      calculateResult();
+      validate() && calculateResult(resultText);
     } else {
       setResultText(resultText + text);
     }
@@ -28,9 +42,9 @@ export default function App() {
       case '*':
       case '/':
         const lastChar = resultText.split('').pop();
-        if(operations.indexOf(lastChar)>0) return;
-        if(resultText === '') return;
-        setResultText(resultText+operation)
+        if (operations.indexOf(lastChar) > 0) return;
+        if (resultText === '') return;
+        setResultText(resultText + operation);
     }
   };
   // const calculateResult
@@ -46,6 +60,7 @@ export default function App() {
     for (let j = 0; j < 3; j++) {
       row.push(
         <TouchableOpacity
+          key={nums[i][j]}
           onPress={() => buttonPressed(nums[i][j])}
           style={styles.btn}
         >
@@ -60,6 +75,7 @@ export default function App() {
   for (let i = 0; i < 5; i++) {
     ops.push(
       <TouchableOpacity
+        key={operations[i]}
         style={styles.btn}
         onPress={() => operate(operations[i])}
       >
@@ -73,7 +89,7 @@ export default function App() {
         <Text style={styles.resultText}>{resultText}</Text>
       </View>
       <View style={styles.calculation}>
-        <Text style={styles.calculationText}>122</Text>
+        <Text style={styles.calculationText}>{calculationText}</Text>
       </View>
       <View style={styles.buttons}>
         <View style={styles.numbers}>{rows}</View>
